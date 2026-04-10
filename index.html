@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AGRI-CONNECT — Farmer-Centered Digital Extension</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── VARIABLES ─────────────────────────────── */
+    :root {
+      --navy:        #1A3A5C;
+      --navy-dark:   #0F2340;
+      --navy-light:  #2E6A9E;
+      --soil:        #C4A882;
+      --soil-dark:   #9E7E58;
+      --soil-light:  #E8D8C0;
+      --soil-bg:     #F5EEE4;
+      --white:       #FFFFFF;
+      --off-white:   #FAF8F5;
+      --text-dark:   #1A2530;
+      --text-mid:    #4A5560;
+      --text-light:  #8A9BA8;
+      --tile-light:  #4A90C4;
+      --tile-dark:   #1F5F8B;
+      --accent:      #C4A882;
+    }
+
+    /* ─── RESET & BASE ──────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 400;
+      color: var(--text-dark);
+      background: var(--off-white);
+      overflow-x: hidden;
+    }
+
+    /* ─── TYPOGRAPHY ────────────────────────────── */
+    h1, h2, h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      line-height: 1.15;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 3.5rem;
+      height: 3px;
+      background: var(--soil);
+      margin-top: 0.6rem;
+      border-radius: 2px;
+    }
+
+    .section-title.light { color: var(--white); }
+    .section-title.light::after { background: var(--soil-light); }
+
+    p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-mid);
+      max-width: 68ch;
+    }
+
+    p + p { margin-top: 1rem; }
+
+    /* ─── NAV ───────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 3.8rem;
+      background: rgba(26, 58, 92, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(196, 168, 130, 0.25);
+    }
+
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-brand span { color: var(--soil); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--soil); }
+
+    /* ─── HERO ──────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-image {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+      filter: brightness(0.92) saturate(1.05);
+    }
+
+    .hero-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent 60%, rgba(26, 58, 92, 0.15));
+    }
+
+    .hero-content {
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 7rem 3.5rem 4rem 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle network pattern on hero */
+    .hero-content::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 80% 20%, rgba(196,168,130,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(46,106,158,0.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--soil);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      line-height: 1.08;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-divider {
+      width: 4rem;
+      height: 3px;
+      background: var(--soil);
+      margin-bottom: 1.4rem;
+      border-radius: 2px;
+    }
+
+    .hero-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: rgba(232, 216, 192, 0.9);
+      margin-bottom: 0.7rem;
+      line-height: 1.4;
+    }
+
+    .hero-tagline {
+      font-size: 1.05rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 3rem;
+    }
+
+    /* channel badges */
+    .hero-badges {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: default;
+    }
+
+    .badge-tile {
+      padding: 0.85rem 1.4rem;
+      border-radius: 10px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      text-align: center;
+      min-width: 8rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .badge-tile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+
+    .badge-tile.whatsapp { background: var(--tile-light); }
+    .badge-tile.hotline  { background: var(--tile-dark); }
+
+    .badge-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+    }
+
+    /* scroll hint */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-hint svg { width: 18px; height: 18px; opacity: 0.5; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ─── SECTIONS ──────────────────────────────── */
+    section {
+      padding: 5.5rem 0;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+    }
+
+    /* alternating backgrounds */
+    .bg-white   { background: var(--white); }
+    .bg-offwhite{ background: var(--off-white); }
+    .bg-navy    { background: var(--navy); }
+    .bg-soil    { background: var(--soil-bg); }
+
+    /* ─── THE PROBLEM ───────────────────────────── */
+    #problem .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 2.5rem;
+    }
+
+    .stat-card {
+      background: var(--navy);
+      border-radius: 14px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      font-weight: 900;
+      color: var(--soil);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.5;
+    }
+
+    .stat-sub {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.6;
+    }
+
+    /* ─── OUR SOLUTION ──────────────────────────── */
+    #solution {
+      background: var(--navy);
+    }
+
+    #solution .section-title { color: var(--white); }
+    #solution .section-title::after { background: var(--soil); }
+    #solution p { color: rgba(232, 216, 192, 0.82); max-width: 72ch; }
+
+    .solution-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+      margin-top: 3rem;
+    }
+
+    .solution-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(196,168,130,0.2);
+      border-radius: 14px;
+      padding: 2rem;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .solution-card:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(196,168,130,0.45);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+    }
+
+    .card-country {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--soil);
+      border: 1px solid rgba(196,168,130,0.4);
+      border-radius: 4px;
+      padding: 0.15rem 0.6rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .card-text {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: rgba(232, 216, 192, 0.75);
+      max-width: none;
+    }
+
+    /* ─── VIDEO ─────────────────────────────────── */
+    #video-section {
+      background: var(--navy-dark);
+      padding: 4rem 0;
+    }
+
+    .video-wrapper {
+      max-width: 780px;
+      margin: 2rem auto 0;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+      aspect-ratio: 16/9;
+      position: relative;
+    }
+
+    .video-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .video-placeholder {
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 2px dashed rgba(196,168,130,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.9rem;
+      border-radius: 12px;
+    }
+
+    .video-placeholder .play-icon {
+      font-size: 3rem;
+      opacity: 0.5;
+    }
+
+    #video-section .section-title { color: var(--white); text-align: center; }
+    #video-section .section-title::after { margin: 0.6rem auto 0; }
+
+    /* ─── ABOUT ─────────────────────────────────── */
+    #about {
+      background: var(--soil-bg);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 2.5rem;
+    }
+
+    .about-image {
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(26,58,92,0.15);
+      aspect-ratio: 4/3;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-values {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    .value-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .value-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--soil-dark);
+      flex-shrink: 0;
+      margin-top: 0.55rem;
+    }
+
+    .value-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-mid);
+      max-width: none;
+    }
+
+    /* ─── JOIN US ────────────────────────────────── */
+    #join {
+      background: var(--navy);
+    }
+
+    #join .section-title { color: var(--white); }
+    #join .section-title::after { background: var(--soil); }
+    #join p { color: rgba(232, 216, 192, 0.82); }
+
+    .join-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .join-feature {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+    }
+
+    .join-icon {
+      width: 2.8rem;
+      height: 2.8rem;
+      border-radius: 10px;
+      background: rgba(196,168,130,0.15);
+      border: 1px solid rgba(196,168,130,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .join-feature-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--white);
+      margin-bottom: 0.35rem;
+    }
+
+    .join-feature-text {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: rgba(232,216,192,0.7);
+      max-width: none;
+    }
+
+    /* pricing note */
+    .pricing-note {
+      margin-top: 3rem;
+      padding: 1.5rem 2rem;
+      background: rgba(196,168,130,0.12);
+      border-left: 3px solid var(--soil);
+      border-radius: 0 10px 10px 0;
+    }
+
+    .pricing-note p {
+      color: rgba(232,216,192,0.85);
+      font-size: 0.95rem;
+      max-width: none;
+    }
+
+    /* ─── CONTACT ────────────────────────────────── */
+    #contact {
+      background: var(--off-white);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 2.5rem;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--navy);
+      margin-bottom: 1.2rem;
+    }
+
+    .contact-person {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid rgba(196,168,130,0.3);
+    }
+
+    .contact-person:last-child { border-bottom: none; }
+
+    .contact-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--navy);
+    }
+
+    .contact-role {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    .contact-email a {
+      font-size: 0.9rem;
+      color: var(--navy-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-email a:hover { color: var(--soil-dark); text-decoration: underline; }
+
+    /* form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .form-field label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      padding: 0.7rem 0.9rem;
+      border: 1.5px solid rgba(196,168,130,0.35);
+      border-radius: 8px;
+      background: var(--white);
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus {
+      border-color: var(--navy-light);
+      box-shadow: 0 0 0 3px rgba(46,106,158,0.12);
+    }
+
+    .form-field textarea { resize: vertical; min-height: 120px; }
+
+    .btn-submit {
+      align-self: flex-start;
+      padding: 0.85rem 2.2rem;
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-submit:hover {
+      background: var(--navy-light);
+      transform: translateY(-1px);
+    }
+
+    /* ─── PARTNERS ───────────────────────────────── */
+    #partners {
+      background: var(--white);
+      padding: 4rem 0;
+    }
+
+    #partners .section-title {
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      text-align: center;
+    }
+
+    #partners .section-title::after {
+      margin: 0.6rem auto 0;
+    }
+
+    .partners-grid {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem 3.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .partner-logo {
+      height: 48px;
+      width: auto;
+      max-width: 160px;
+      object-fit: contain;
+      filter: grayscale(20%);
+      opacity: 0.85;
+      transition: opacity 0.2s, filter 0.2s, transform 0.2s;
+    }
+
+    .partner-logo:hover {
+      opacity: 1;
+      filter: grayscale(0%);
+      transform: scale(1.05);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer {
+      background: var(--navy-dark);
+      padding: 2.5rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.35);
+      max-width: none;
+      margin: 0;
+    }
+
+    footer a {
+      color: var(--soil);
+      text-decoration: none;
+    }
+
+    /* ─── SCROLL ANIMATIONS ──────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 860px) {
+      #hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-image { height: 55vw; max-height: 400px; }
+      .hero-content { padding: 3.5rem 2rem 3rem; }
+      #problem .problem-grid,
+      .solution-cards,
+      .about-grid,
+      .join-grid,
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .form-row { grid-template-columns: 1fr; }
+      nav { padding: 0 1.2rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.72rem; }
+      .container { padding: 0 1.4rem; }
+      section { padding: 3.5rem 0; }
+    }
+
+    @media (max-width: 560px) {
+      .nav-links { display: none; }
+      .hero-badges { flex-direction: column; }
+      .badge-tile { min-width: unset; width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a href="#hero" class="nav-brand">AGRI<span>–</span>CONNECT</a>
+    <ul class="nav-links">
+      <li><a href="#problem">Problem</a></li>
+      <li><a href="#solution">Solution</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#join">Join Us</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="hero-image">
+      <!-- Replace with your own photo if desired -->
+      <img
+        src="https://images.unsplash.com/photo-1499529112087-3cb3b73cec95?w=1200&q=80"
+        alt="Farmer using a smartphone in the field"
+      />
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Farmer-Centered Digital Extension</p>
+      <h1 class="hero-title">AGRI–CONNECT</h1>
+      <div class="hero-divider"></div>
+      <p class="hero-subtitle">Farmer-Centered Digital Extension</p>
+      <p class="hero-tagline">Your Content. Your Impact.</p>
+      <div class="hero-badges">
+        <div class="badge">
+          <div class="badge-tile whatsapp">WhatsApp Chatbot</div>
+          <span class="badge-label">Kenya</span>
+        </div>
+        <div class="badge">
+          <div class="badge-tile hotline">Voice Hotline</div>
+          <span class="badge-label">Uganda</span>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+      Scroll
+    </div>
+  </section>
+
+  <!-- ── THE PROBLEM ── -->
+  <section id="problem" class="bg-offwhite">
+    <div class="container">
+      <div class="fade-up">
+        <h2 class="section-title">The Problem</h2>
+      </div>
+      <div class="problem-grid">
+        <div class="fade-up">
+          <p>
+            In 2025, we interviewed <strong>1,200 smallholder farmers</strong> in Kenya and Uganda.
+            They told us that <em>"lack of information"</em> was the main obstacle preventing them from
+            adopting more sustainable farming practices — consistent with findings by Ndambi et al. (2019)
+            and Owino et al. (2020).
+          </p>
+          <p style="margin-top: 1.2rem;">
+            Governmental extension services are understaffed and reach only a fraction of those who
+            need advice. Much information already exists — the challenge is getting it to farmers.
+          </p>
+        </div>
+        <div class="fade-up" style="transition-delay: 0.15s;">
+          <div class="stat-card">
+            <div>
+              <div class="stat-number">1,200</div>
+              <div class="stat-label">Smallholder farmers interviewed in Kenya &amp; Uganda (2025)</div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.2rem;">
+              <div class="stat-number" style="font-size: 2.8rem;">#1</div>
+              <div class="stat-label">Barrier to sustainable farming practices</div>
+              <div class="stat-sub">Lack of information — cited across gender and age groups</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── OUR SOLUTION ── -->
+  <section id="solution" class="bg-navy">
+    <div class="container">
+      <div class="fade-up">
+        <h2 class="section-title light">Our Solution</h2>
+        <p>
+          We meet farmers where they are — on their phones — with trusted, science-backed content
+          in languages they speak, through devices they already own.
+        </p>
+      </div>
+      <div class="solution-cards">
+        <div class="solution-card fade-up" style="transition-delay: 0.1s;">
+          <span class="card-icon">📱</span>
+          <span class="card-country">Kenya</span>
+          <div class="card-title">WhatsApp Chatbot</div>
+          <p class="card-text">
+            An AI-driven chatbot in <strong style="color:rgba(255,255,255,0.9)">English and Kiswahili</strong>,
+            trained exclusively on fact-checked content curated by Agroscope and CGIAR scientists.
+            Built for high smartphone ownership in Kenya, with an SMS dial-in option so feature phone
+            users can also participate — making it a socially inclusive solution. Smartphone users additionally
+            receive multimedia content: videos and graphical manuals for sustainable farm management.
+          </p>
+        </div>
+        <div class="solution-card fade-up" style="transition-delay: 0.2s;">
+          <span class="card-icon">📞</span>
+          <span class="card-country">Uganda</span>
+          <div class="card-title">Voice Hotline (IVR)</div>
+          <p class="card-text">
+            In Uganda, where smartphone ownership is lower, we offer
+            <strong style="color:rgba(255,255,255,0.9)">Interactive Voice Response (IVR)</strong> — a hotline
+            farmers call to access pre-recorded content in their preferred local language. No smartphone
+            needed, no data costs. Your content, delivered by voice.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VIDEO ── -->
+  <section id="video-section">
+    <div class="container">
+      <div class="fade-up" style="text-align:center;">
+        <h2 class="section-title light" style="display:inline-block;">Watch What We Do</h2>
+        <p style="color: rgba(232,216,192,0.7); text-align:center; margin: 0 auto 0; max-width:52ch;">
+          See how AGRI-CONNECT reaches farmers where it matters most.
+        </p>
+      </div>
+
+      <div class="video-wrapper fade-up" style="transition-delay:0.15s;">
+        <!--
+          ╔══════════════════════════════════════════════════════════════╗
+          ║  HOW TO ADD YOUR YOUTUBE VIDEO:                             ║
+          ║  1. Upload your video to YouTube                            ║
+          ║  2. Copy the video ID from the URL                          ║
+          ║     e.g. https://www.youtube.com/watch?v=XXXXXXXXXXX        ║
+          ║     → the ID is: XXXXXXXXXXX                                ║
+          ║  3. Replace YOUR_VIDEO_ID below with that ID                ║
+          ║  4. Delete the <div class="video-placeholder"> block        ║
+          ║     and uncomment the <iframe> block                        ║
+          ╚══════════════════════════════════════════════════════════════╝
+
+          UNCOMMENT THIS WHEN YOU HAVE YOUR VIDEO ID:
+          <iframe
+            src="https://www.youtube.com/embed/YOUR_VIDEO_ID?rel=0&modestbranding=1"
+            title="AGRI-CONNECT — Farmer-Centered Digital Extension"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        -->
+
+        <!-- REMOVE THIS PLACEHOLDER BLOCK WHEN YOU ADD YOUR VIDEO -->
+        <div class="video-placeholder">
+          <span class="play-icon">▶</span>
+          <span>Video coming soon</span>
+          <span style="font-size:0.78rem; opacity:0.6;">Upload to YouTube and paste your video ID here</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section id="about" class="bg-soil">
+    <div class="container">
+      <div class="fade-up">
+        <h2 class="section-title">About Us</h2>
+        <p>
+          We are a partnership of organisations that share a passion for impact — bringing science to
+          the people who need it most, with a special focus on women and youth farmers.
+        </p>
+      </div>
+      <div class="about-grid">
+        <div class="fade-up" style="transition-delay: 0.1s;">
+          <p>
+            Our team brings together expertise in ICT for development, agricultural science, livestock
+            research, and farmer community engagement across East Africa.
+          </p>
+          <div class="about-values">
+            <div class="value-item">
+              <div class="value-dot"></div>
+              <span class="value-text"><strong>Viamo</strong> — Social enterprise building ICT solutions for development</span>
+            </div>
+            <div class="value-item">
+              <div class="value-dot"></div>
+              <span class="value-text"><strong>Agroscope</strong> — Switzerland's federal agricultural research station</span>
+            </div>
+            <div class="value-item">
+              <div class="value-dot"></div>
+              <span class="value-text"><strong>ILRI / CGIAR</strong> — International Livestock Research Institute, Kenya &amp; Uganda</span>
+            </div>
+            <div class="value-item">
+              <div class="value-dot"></div>
+              <span class="value-text"><strong>WoFaAK</strong> — Women Farmers Association of Kenya</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-image fade-up" style="transition-delay: 0.2s;">
+          <img
+            src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&q=80"
+            alt="Agricultural field in East Africa"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── JOIN US ── -->
+  <section id="join" class="bg-navy">
+    <div class="container">
+      <div class="fade-up">
+        <h2 class="section-title light">Join Us</h2>
+        <p>
+          Host your content with us. We built the infrastructure — you pay only for hosting and
+          translation. The more content is hosted, the broader the information access for farmers.
+        </p>
+      </div>
+      <div class="join-grid" style="margin-top: 2.5rem;">
+        <div class="join-feature fade-up" style="transition-delay:0.08s;">
+          <div class="join-icon">✅</div>
+          <div>
+            <div class="join-feature-title">Non-commercial</div>
+            <p class="join-feature-text">We do not sell anything. We provide impartial, evidence-based agricultural information — free from commercial interests.</p>
+          </div>
+        </div>
+        <div class="join-feature fade-up" style="transition-delay:0.16s;">
+          <div class="join-icon">🔬</div>
+          <div>
+            <div class="join-feature-title">Peer-reviewed content</div>
+            <p class="join-feature-text">All content passes through a double-blind peer-review process before inclusion — ensuring quality and scientific credibility.</p>
+          </div>
+        </div>
+        <div class="join-feature fade-up" style="transition-delay:0.24s;">
+          <div class="join-icon">🌍</div>
+          <div>
+            <div class="join-feature-title">Broad reach</div>
+            <p class="join-feature-text">Reach smallholder farmers across Kenya and Uganda via WhatsApp, SMS, and voice — in local languages.</p>
+          </div>
+        </div>
+        <div class="join-feature fade-up" style="transition-delay:0.32s;">
+          <div class="join-icon">💡</div>
+          <div>
+            <div class="join-feature-title">Competitive pricing</div>
+            <p class="join-feature-text">Infrastructure is already built. You pay only for content hosting and translation — making your research count.</p>
+          </div>
+        </div>
+      </div>
+      <div class="pricing-note fade-up" style="transition-delay:0.4s;">
+        <p>
+          <strong style="color:rgba(255,255,255,0.9);">Your content. Your impact.</strong> —
+          We are looking for research organisations, NGOs, and extension services that want to turn
+          their knowledge into action for farming communities. Get in touch to discuss a collaboration.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact" class="bg-offwhite">
+    <div class="container">
+      <div class="fade-up">
+        <h2 class="section-title">Contact Us</h2>
+        <p>Interested in hosting your content or learning more? We'd love to hear from you.</p>
+      </div>
+      <div class="contact-grid">
+
+        <!-- Contact persons -->
+        <div class="contact-info fade-up" style="transition-delay:0.1s;">
+          <h3>Get in touch directly</h3>
+          <div class="contact-person">
+            <span class="contact-name">Mirja Michalscheck</span>
+            <span class="contact-role">Agroscope — Science &amp; Partnerships</span>
+            <span class="contact-email">
+              <a href="mailto:mirja.michalscheck@agroscope.admin.ch">mirja.michalscheck@agroscope.admin.ch</a>
+            </span>
+          </div>
+          <div class="contact-person">
+            <span class="contact-name">Céline Duros</span>
+            <span class="contact-role">Viamo — Technical Solutions &amp; Reach</span>
+            <span class="contact-email">
+              <a href="mailto:celine.duros@viamo.io">celine.duros@viamo.io</a>
+            </span>
+          </div>
+        </div>
+
+        <!-- Contact form via Formspree -->
+        <!--
+          ╔══════════════════════════════════════════════════════════════╗
+          ║  HOW TO ACTIVATE THE CONTACT FORM:                          ║
+          ║  1. Go to https://formspree.io and create a free account    ║
+          ║  2. Create a new form and add BOTH email addresses          ║
+          ║     as recipients                                            ║
+          ║  3. Copy your form endpoint, e.g.:                          ║
+          ║     https://formspree.io/f/XXXXXXXX                         ║
+          ║  4. Replace YOUR_FORMSPREE_ID in the action below           ║
+          ╚══════════════════════════════════════════════════════════════╝
+        -->
+        <form
+          class="contact-form fade-up"
+          style="transition-delay:0.2s;"
+          action="https://formspree.io/f/YOUR_FORMSPREE_ID"
+          method="POST"
+        >
+          <div class="form-row">
+            <div class="form-field">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required />
+            </div>
+            <div class="form-field">
+              <label for="org">Organisation</label>
+              <input type="text" id="org" name="organisation" placeholder="Your organisation" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+          <div class="form-field">
+            <label for="interest">I am interested in…</label>
+            <select id="interest" name="interest">
+              <option value="">Please select</option>
+              <option value="hosting">Hosting my content</option>
+              <option value="partnership">Partnership / collaboration</option>
+              <option value="research">Research inquiry</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us about your interest or questions…" required></textarea>
+          </div>
+          <!-- Hidden field to send copy to both contacts -->
+          <input type="hidden" name="_cc" value="mirja.michalscheck@agroscope.admin.ch,celine.duros@viamo.io" />
+          <input type="hidden" name="_subject" value="AGRI-CONNECT Website Enquiry" />
+          <button type="submit" class="btn-submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PARTNERS ── -->
+  <section id="partners" class="bg-white">
+    <div class="container">
+      <div class="fade-up">
+        <h2 class="section-title">A Partnership of</h2>
+      </div>
+      <div class="partners-grid fade-up" style="transition-delay:0.1s;">
+        <!--
+          Replace the src values below with paths to your logo files.
+          If you place the logos in a folder called "logos/" next to index.html,
+          use: src="logos/snf_logo.png" etc.
+          For now they reference the uploaded files by name — update as needed.
+        -->
+        <img class="partner-logo" src="logos/SNF_logo.png"         alt="Schweizerischer Nationalfonds" />
+        <img class="partner-logo" src="logos/SOR4D_logo.png"        alt="Solution-oriented Research for Development" />
+        <img class="partner-logo" src="logos/agroscope.jpg"         alt="Agroscope" />
+        <img class="partner-logo" src="logos/ILRI_CGIAr_logo.png"   alt="ILRI / CGIAR" />
+        <img class="partner-logo" src="logos/Viamo_Logo.png"        alt="Viamo" />
+        <img class="partner-logo" src="logos/WoFaAK_logo.png"       alt="WoFaAK" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <p>
+      © 2025 AGRI-CONNECT &nbsp;|&nbsp;
+      <a href="mailto:mirja.michalscheck@agroscope.admin.ch">Contact</a>
+      &nbsp;|&nbsp; Funded by SNF / SOR4D
+    </p>
+  </footer>
+
+  <!-- ── SCROLL ANIMATION JS ── -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
